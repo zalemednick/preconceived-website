@@ -91,26 +91,23 @@ When a new episode is released, run:
 cd ~/Desktop/preconceived-website && python3 fetch-episodes.py
 ```
 
-## Deployment plan (in progress)
-The site currently lives at `~/Desktop/preconceived-website/` and is now a **git repo** (initialized, first commit made on local `main` branch).
+## Deployment status — LIVE
+**preconceivedpodcast.com is live on Netlify as of 2026-06-10.**
 
-**Domain:** preconceivedpodcast.com — registered at GoDaddy, DNS also managed via GoDaddy nameservers (ns53/ns54.domaincontrol.com). Currently points to Webflow (`cdn.webflow.com`).
+- Code repo: https://github.com/zalemednick/preconceived-website (pushed via SSH)
+- Hosting: Netlify, project name `polite-cactus-ac2cd5` (also accessible at `polite-cactus-ac2cd5.netlify.app`)
+- Continuous deployment: every `git push` to `main` auto-redeploys the live site (~30 seconds), no build command needed
+- DNS: GoDaddy DNS records for preconceivedpodcast.com updated to point at Netlify —
+  - `A` record `@` → `75.2.60.5`
+  - `CNAME` record `www` → `polite-cactus-ac2cd5.netlify.app`
+  - (NS records, SOA, and the old `_webflow.www` TXT verification record were left untouched)
+- HTTPS: Let's Encrypt certificate provisioned and verified through Netlify
 
-**Plan:**
-1. Push this repo to a new GitHub repository (Zale to create the repo on github.com and share the URL).
-2. Connect that GitHub repo to **Netlify** (free tier) for continuous deployment — no build command needed, publish directory is the repo root.
-3. Add `preconceivedpodcast.com` as a custom domain in Netlify, then update the DNS records at GoDaddy to point to Netlify (replacing the Webflow records).
-4. Set up a **GitHub Actions** scheduled workflow that runs `fetch-episodes.py` periodically, commits `episodes.json` if it changed, and pushes — Netlify auto-redeploys on push, so new Acast episodes appear automatically with no manual steps.
-5. Once the new site is live and verified on the domain, cancel/delete the Webflow project.
-
-**Going forward, day-to-day editing workflow:** edits still happen locally with Claude Code (as before). "Publishing" a change = committing and pushing to GitHub — Netlify picks it up and updates the live site automatically (~30 seconds). There's no separate visual editor like Webflow.
+**Going forward, day-to-day editing workflow:** edits still happen locally with Claude Code (as before). "Publishing" a change = committing and pushing to GitHub — Netlify picks it up and updates the live site automatically. There's no separate visual editor like Webflow.
 
 ## Things still to do
-- [ ] Zale creates a GitHub repo and shares the URL so the code can be pushed
-- [ ] Connect the repo to Netlify and do the first deploy
-- [ ] Point preconceivedpodcast.com (GoDaddy DNS) at Netlify
-- [ ] Add GitHub Actions workflow for automatic episode refresh
-- [ ] Decommission/delete the Webflow project once the new site is confirmed live
+- [ ] Add a GitHub Actions workflow to run `fetch-episodes.py` on a schedule, commit `episodes.json` if changed, and push — so new Acast episodes appear on the homepage and Episodes page automatically
+- [ ] Once confident the new site is stable, cancel/delete the old Webflow project (Zale to do this directly in Webflow — has billing implications)
 
 ## How to resume with Claude Code
 Open Terminal, type `claude`, then paste this file's contents and say:
