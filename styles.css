@@ -690,6 +690,59 @@ footer p {
   font-size: 1rem;
 }
 
+/* ── FEATURED EPISODES ── */
+.featured-section {
+  text-align: center;
+}
+
+.featured-section .container {
+  max-width: 1100px;
+}
+
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 28px;
+  margin-top: 8px;
+  text-align: left;
+}
+
+.featured-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--off-white);
+  border-radius: 12px;
+  overflow: hidden;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.featured-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+}
+
+.featured-card-body {
+  display: flex;
+  flex-direction: column;
+  padding: 28px 24px;
+}
+
+.featured-card-body h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.4;
+  margin: 4px 0 8px;
+}
+
+.featured-card-link {
+  margin-top: 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #b08d00;
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 680px) {
   .host-grid {

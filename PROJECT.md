@@ -38,6 +38,8 @@ preconceived-website/
 ## Navigation (all pages)
 About | Episodes | Book | Blog | YouTube Channel
 
+The "About" nav link and the "PRECONCEIVED" logo (top-left) both link to `index.html#about-show`, which smooth-scrolls down to the "About the Show" section.
+
 ## Blog
 Re-creates a subset (12 of 19) of the articles from the old preconceivedpodcast.com/blog. Each article in `blog/` is a standalone page (uses `../` paths back to root assets/styles/nav) with a featured image (sourced from the original Webflow CDN, same images as the old post pages), a navy header bar with title + "Back to Blog" link, and the full article text in `.article-container`. `blog.html` lists all 12 as cards (`.blog-grid` / `.blog-card`) with a thumbnail, title, short excerpt, and "Read More" link.
 
@@ -63,6 +65,11 @@ Articles intentionally NOT carried over (from the original ~19): the rest were s
 - https://www.youtube.com/watch?v=wBPVsZjrQI8
 - https://www.youtube.com/watch?v=HxoZMpxuDlA
 - https://www.youtube.com/watch?v=4RS9YQmCJnY
+- https://www.youtube.com/watch?v=mmXwsjm3zm8
+
+**Hero banner:** `assets/banner.jpg` — dark lightbulb image with "PRECONCEIVED" and "Challenging the Preconceptions in Our Lives" text baked into the image itself.
+
+**Social links:** Instagram and YouTube only (Twitter/X was removed from nav and footer — link no longer worked).
 
 ## Color palette
 - Navy: `#1a1e45`
@@ -84,9 +91,26 @@ When a new episode is released, run:
 cd ~/Desktop/preconceived-website && python3 fetch-episodes.py
 ```
 
+## Deployment plan (in progress)
+The site currently lives at `~/Desktop/preconceived-website/` and is now a **git repo** (initialized, first commit made on local `main` branch).
+
+**Domain:** preconceivedpodcast.com — registered at GoDaddy, DNS also managed via GoDaddy nameservers (ns53/ns54.domaincontrol.com). Currently points to Webflow (`cdn.webflow.com`).
+
+**Plan:**
+1. Push this repo to a new GitHub repository (Zale to create the repo on github.com and share the URL).
+2. Connect that GitHub repo to **Netlify** (free tier) for continuous deployment — no build command needed, publish directory is the repo root.
+3. Add `preconceivedpodcast.com` as a custom domain in Netlify, then update the DNS records at GoDaddy to point to Netlify (replacing the Webflow records).
+4. Set up a **GitHub Actions** scheduled workflow that runs `fetch-episodes.py` periodically, commits `episodes.json` if it changed, and pushes — Netlify auto-redeploys on push, so new Acast episodes appear automatically with no manual steps.
+5. Once the new site is live and verified on the domain, cancel/delete the Webflow project.
+
+**Going forward, day-to-day editing workflow:** edits still happen locally with Claude Code (as before). "Publishing" a change = committing and pushing to GitHub — Netlify picks it up and updates the live site automatically (~30 seconds). There's no separate visual editor like Webflow.
+
 ## Things still to do
-- [ ] Deploy to a hosting provider (e.g. Netlify, GitHub Pages) to replace preconceivedpodcast.com
-- [ ] When deploying: set up automatic episode refresh so new Acast episodes appear on the site without manually running fetch-episodes.py (scheduled job via Netlify/Vercel or GitHub Actions)
+- [ ] Zale creates a GitHub repo and shares the URL so the code can be pushed
+- [ ] Connect the repo to Netlify and do the first deploy
+- [ ] Point preconceivedpodcast.com (GoDaddy DNS) at Netlify
+- [ ] Add GitHub Actions workflow for automatic episode refresh
+- [ ] Decommission/delete the Webflow project once the new site is confirmed live
 
 ## How to resume with Claude Code
 Open Terminal, type `claude`, then paste this file's contents and say:

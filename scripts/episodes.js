@@ -34,7 +34,6 @@ async function loadEpisodes() {
             >
           </div>
           <div class="episode-info">
-            <span class="episode-num">Ep. ${ep.epNum}</span>
             <h3 class="episode-title">${esc(ep.title)}</h3>
             <span class="episode-date">${dateStr}</span>
             <p class="episode-desc">${esc(excerpt)}</p>
