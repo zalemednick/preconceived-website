@@ -782,6 +782,17 @@ footer p {
 
 /* ── RESPONSIVE ── */
 @media (max-width: 680px) {
+  .hero {
+    height: 300px;
+  }
+
+  .hero-banner-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
   .host-grid {
     grid-template-columns: 1fr;
   }
